@@ -13,6 +13,6 @@ class Graph {
 public:
     Graph(string);
     ~Graph();
-    int** Dijkstra(int);
+    void Dijkstra(int);
     void display();
 };
