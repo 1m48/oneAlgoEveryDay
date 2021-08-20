@@ -13,6 +13,7 @@ class Graph {
 public:
     Graph(string);
     ~Graph();
+    void minPathDij(int** &, int , int, int);
     void Dijkstra(int);
     void display();
 };

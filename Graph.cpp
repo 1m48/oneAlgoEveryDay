@@ -31,17 +31,17 @@ Graph::Graph(string fileName ){
 Graph::~Graph() {
     for (int i = 0; i < this->v; ++i) delete[](this->matrix[i]);
     delete[]matrix;
-    cout << "delete successfully";
 }
 
-void minPath(int** &m, int i, int j, int root) {
+void Graph::minPathDij(int** &m, int i, int j, int root) {
     if (i == 1) {
         cout << root;
         return;
     }
-    if (m[i][j] == m[i - 1][j]) minPath(m, i - 1, j, root);
+    if (m[i][j] == m[i - 1][j]) minPathDij(m, i - 1, j, root);
     else {
-        minPath(m, i - 1, m[i][0], root);
+        
+        minPathDij(m, i - 1, m[i][0] + 1, root);
         cout << "->" << m[i][0];
     }
     return;
@@ -74,17 +74,18 @@ void Graph::Dijkstra(int root) {
         verToRoot = min;
         ver = minj;
     }
-
+        
     cout << "Shortest Path from " << root << " to all" << endl;
     cout << "Vertex \t minPath \t Path" << endl;
     for (int j = 0; j < this->v; ++j) {
         cout << j <<"\t " << dijkstra[this->v][j + 1] << "\t\t ";
-        minPath(dijkstra, this->v, j + 1, root);
+        minPathDij(dijkstra, this->v, j + 1, root);
         if (j != root) cout << "->" << j;
         cout << endl;
     }
-
-
+    for (int i = 0; i < this->v; ++i) delete[]dijkstra[i];
+    delete[]dijkstra;
+    delete[]check;
 }
 
 void Graph::display() {
